@@ -2,6 +2,8 @@
 
 class CommandLine
 
+  attr_accessor :position #stores current state of position choice
+
   # Desired interface:
   # "What position would you like to see the top 20 players?"
   # => List of top 20 players for QB, WR, RB, TE, or K and team player is on
@@ -16,34 +18,72 @@ class CommandLine
     puts "Welcome to the NFL Fantasy Football Rankings and Players!"
   end
 
-  def show_rankings
+  def choose_rankings
     # asks for position (QB, WR, RB, TE, or K) and lists top 20 ranked by ESPN
     puts "What position would you like to see rankings for?"
     puts "Please enter QB, RB, TE, WR, or K:"
-    pos = gets.strip.downcase
-    if pos == "qb" || pos == "rb" || position == "te" || position ==  "wr" || position == "k"
+    position = gets.strip.downcase
+    if position == "qb" || position == "rb" || position == "te" || position ==  "wr" || position == "k"
       print_rankings(position)
+      choose_player
     else
       puts "Invalid entry - please enter a valid input."
-      show_rankings
+      choose_rankings
     end
   end
 
-  def print_rankings
-
+  def print_rankings(position)
+    #iterates through position.all to print player name and rankings by position
+    puts "1. Todd Gurley II"
+    puts "2. Alvin Kamara"
+    # position.all.each {|i| "#{i.rank}. #{i.player.name}"}
   end
 
-  def show_player
+  def choose_player
     # prompts for player details
     # input is rank, output is player details
-    puts "Player Details"
+    puts "If you would like to see details about a player, enter their rank number:"
+    rank = gets.strip.to_i
+    if rank.between?(1,20)
+      print_player(rank)
+    else
+      puts "Invalid entry - please enter a valid input."
+      choose_player
+    end
+  end
+
+  def print_player(list_number)
+    puts "-------------------------------"
+    puts "Name: Todd Gurley II           "
+    puts "Team: Los Angeles Rams         "
+    puts "Jersey Number: #30             "
+    puts "Experience: 4th Season         "
+    puts "-------------------------------"
+  end
+
+  def again?
+    # Allows user to see details about a different player on the current rank list, choose a different rank list, or quit
+    puts "Would you like to: 1. see details about a different player, 2. see rankings for a different position, or quit?"
+    puts "Please enter 1, 2, or quit."
+    input = gets.strip.downcase
+    if input == "1"
+      print_rankings(position)
+      choose_player
+    elsif input == "2"
+      choose_rankings
+    elsif input == "quit"
+      return
+    else
+      puts "Invalid entry - please enter a valid input."
+      again?
+    end
+    again?
   end
 
   def run
     welcome
-    show_rankings
-    show_player
-
+    choose_rankings
+    again?
   end
 
 end
