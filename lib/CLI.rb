@@ -16,6 +16,7 @@ class CommandLine
 
   def welcome
     puts "Welcome to the NFL Fantasy Football Rankings and Players!"
+    binding.pry()
   end
 
   def choose_rankings
@@ -57,7 +58,9 @@ class CommandLine
     puts "Name: Todd Gurley II           "
     puts "Team: Los Angeles Rams         "
     puts "Jersey Number: #30             "
+    puts "Age: 24                        "
     puts "Experience: 4th Season         "
+    puts "College: Georgia               "
     puts "-------------------------------"
   end
 
