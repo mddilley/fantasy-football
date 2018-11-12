@@ -2,8 +2,9 @@
 
 class Player
 
-  def initialize
-    #use metaprogramming to instantiate new classes and create attributes
+  def initialize(player_hash)
+    # player_hash passed in contains player name and attributes
+    # use metaprogramming to instantiate new classes and create attributes
   end
 
 end

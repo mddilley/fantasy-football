@@ -6,7 +6,7 @@ class CLI
   # "What position would you like to see the top 20 players?"
   # => List of top 20 players for QB, WR, RB, TE, or K and team player is on
   # "Would you like to know more information about a player?"
-  # => Show more detailed information about a specific player
+  # => Show more detailed information about a specific player (enter #)
   # "Would you like to see more rankings, details about another player, or quit?"
   # => 1. Return to rankings, show different player, or quit
 
