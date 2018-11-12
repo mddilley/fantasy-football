@@ -1,3 +1,5 @@
+# Purpose: to scrape ESPN.com for data about players and FF rankings
+
 class Scraper
 
   def scrape_player(player_url)
