@@ -18,7 +18,19 @@ class CommandLine
 
   def show_rankings
     # asks for position (QB, WR, RB, TE, or K) and lists top 20 ranked by ESPN
-    puts "Top 20 Players for QB"
+    puts "What position would you like to see rankings for?"
+    puts "Please enter QB, RB, TE, WR, or K:"
+    pos = gets.strip.downcase
+    if pos == "qb" || pos == "rb" || position == "te" || position ==  "wr" || position == "k"
+      print_rankings(position)
+    else
+      puts "Invalid entry - please enter a valid input."
+      show_rankings
+    end
+  end
+
+  def print_rankings
+
   end
 
   def show_player
