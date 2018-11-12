@@ -1,6 +1,6 @@
 # Purpose: to instantiate a command line interface
 
-class CommandLine
+class CLI
 
   attr_accessor :position #stores current state of position choice
 
@@ -16,7 +16,6 @@ class CommandLine
 
   def welcome
     puts "Welcome to the NFL Fantasy Football Rankings and Players!"
-    binding.pry()
   end
 
   def choose_rankings
@@ -43,10 +42,12 @@ class CommandLine
   def choose_player
     # prompts for player details
     # input is rank, output is player details
-    puts "If you would like to see details about a player, enter their rank number:"
-    rank = gets.strip.to_i
-    if rank.between?(1,20)
+    puts "If you would like to see details about a player, enter their rank number. If not, enter N"
+    rank = gets.strip
+    if rank.to_i.between?(1,20)
       print_player(rank)
+    elsif rank.downcase == "n"
+      return
     else
       puts "Invalid entry - please enter a valid input."
       choose_player
