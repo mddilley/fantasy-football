@@ -2,10 +2,6 @@
 
 The purpose of this gem is to scrape data from ESPN.com and to produce organized data about fantasy football rankings of players by position. It will provide provide guidance for choosing players for a fantasy football team based on the rankings posted on ESPN.com.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/fantasy/football`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
