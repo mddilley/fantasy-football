@@ -2,4 +2,8 @@
 
 class Player
 
+  def initialize
+    #use metaprogramming to instantiate new classes and create attributes
+  end
+
 end
