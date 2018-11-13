@@ -6,7 +6,10 @@ class Scraper
     # scrapes ESPN.com for players listed in rankings
     # variable passed in is player_url
     # output is hash of player attributes
-    doc = Nokogiri::HTML(open())
+    doc = Nokogiri::HTML(open("https://www.fantasypros.com/nfl/players/patrick-mahomes.php"))
+    # player name => doc.css('.player-16413').text
+    # player position => doc.css('div .pull-left h5').text.strip.split(" - ")[0]
+    # player team => doc.css('div .pull-left h5').text.strip.split(" - ")[1]
   end
 
   def scrape_rankings(position)
@@ -24,9 +27,7 @@ class Scraper
     build_ranking_hash(table)
   end
 
-  def build_player_hash
 
-  end
 
   def build_ranking_hash(table)
     # Input is table of player rankings, outputs hash of players and their rankings
@@ -39,9 +40,13 @@ class Scraper
       end
     end
     }
-    binding.pry
   end
 
+  def build_player_hash
+
+
+
+  end
 
 end
 
