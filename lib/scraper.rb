@@ -29,15 +29,17 @@ class Scraper
   end
 
   def build_ranking_hash(table)
-    # Input is table of player rankings, outputs
+    # Input is table of player rankings, outputs hash of players and their rankings
     rankings = {}
     rankings.tap {
     table.each_with_index do |t, i|
       if i < 20
-        rankings[[t.text.split[1], t.text.split[3]].join(" ")] = t.text.split[0]
+        rankings[[t.text.split[1], t.text.split[3]].join(" ")] = {:rank => t.text.split[0],
+                                                                  :url => "http://www.fantasypros.com" + t.css('a')[0]["href"]}
       end
     end
     }
+    binding.pry
   end
 
 
