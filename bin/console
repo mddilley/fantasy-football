@@ -12,5 +12,8 @@ require_relative "../config/environment"
 
 # require "irb"
 # IRB.start(__FILE__)
+
+
 # CLI.new.run
+
 IRB.start

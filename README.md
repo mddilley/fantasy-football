@@ -1,6 +1,6 @@
 # Fantasy Football
 
-The purpose of this gem is to scrape data from ESPN.com and to produce organized data about fantasy football rankings of players by position. It will provide provide guidance for choosing players for a fantasy football team based on the rankings posted on ESPN.com.
+The purpose of this gem is to scrape data from Fantasypros.com and to produce organized data about fantasy football rankings of players by position. It will provide provide guidance for choosing players for a fantasy football team based on the rankings posted on Fantasypros.com.
 
 ## Installation
 
