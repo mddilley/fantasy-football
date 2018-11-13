@@ -2,7 +2,7 @@
 
 class Player
 
-  attr_accessor :name, :position, :projection, :team, :team, :height, :weight, :age, :college, :rank
+  attr_accessor :name, :position, :projection, :team, :height, :weight, :age, :college, :rank
 
   @@all = []
 
