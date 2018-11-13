@@ -2,16 +2,23 @@
 
 class Player
 
-  def initialize
+  attr_accessor :name, :position, :projection, :team, :team, :height, :weight, :age, :college, :rank
+
+  @@all = []
+
+  def initialize(player_hash)
     # player_hash passed in contains player name and attributes
     # use metaprogramming to instantiate new classes and create attributes
+    player_hash.each {|k,v| self.send("#{k}=", v)}
+    save
   end
 
-  def create_from_hash(player_hash)
-    player = Player.new
-    player_hash.each do |k,v|
-      player.send("#{k}=", v)
-    end
+  def save
+    @@all << self
+  end
+
+  def self.all
+    @@all
   end
 
   def create_from_nested_hashes(nested_hash)
