@@ -21,7 +21,14 @@ class Player
     @@all
   end
 
-  def create_from_nested_hashes(nested_hash)
+  def self.create_from_nested_hashes(nested_hash)
+    nested_hash.each do |p|
+      Player.new(p)
+      save
+    end
+  end
+
+  def self.find_by_rank
 
   end
 

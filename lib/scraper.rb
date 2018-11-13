@@ -25,7 +25,7 @@ class Scraper
     table.each_with_index do |t, i|
       if i < top
         rankings[[t.text.split[1], t.text.split[3]].join(" ")] = {:rank => t.text.split[0],
-                                                                  :url => "http://www.fantasypros.com" + t.css('a')[0]["href"]}
+                                                                  :url => "https://www.fantasypros.com" + t.css('a')[0]["href"]}
       end
     end
     }
@@ -35,7 +35,7 @@ class Scraper
     # scrapes ESPN.com for players listed in rankings
     # variable passed in is player_url
     # output is hash of player attributes
-    doc = Nokogiri::HTML(open("https://www.fantasypros.com/nfl/players/patrick-mahomes.php"))
+    doc = Nokogiri::HTML(open(player_url))
     # player :name => doc.css('.player-16413').text
     # player :position => doc.css('div .pull-left h5').text.strip.split(" - ")[0]
     # player :projection => doc.css('.clearfix.detail span.pull-right')[2].text.split[0]
@@ -61,7 +61,7 @@ class Scraper
     ranking_hash = scrape_rankings(position)
     nested_hash.tap {
       ranking_hash.each do |k, v|
-        binding.pry
+        # binding.pry
         h = scrape_player(v[:url])
         h[:rank] = v[:rank]
         nested_hash << h
