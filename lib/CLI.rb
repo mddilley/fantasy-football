@@ -57,10 +57,12 @@ class CLI
   def print_player(list_number)
     puts "-------------------------------"
     puts "Name: Todd Gurley II           "
-    puts "Team: Los Angeles Rams         "
-    puts "Jersey Number: #30             "
+    puts "Position: RB                   "
+    puts "Projection: 22.6 points        "
+    puts "Team: LAR                      "
+    puts "Height: 6' 1\"                 "
+    puts "Weight: 224 lbs.               "
     puts "Age: 24                        "
-    puts "Experience: 4th Season         "
     puts "College: Georgia               "
     puts "-------------------------------"
   end
