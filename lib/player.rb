@@ -24,12 +24,11 @@ class Player
   def self.create_from_nested_hashes(nested_hash)
     nested_hash.each do |p|
       Player.new(p)
-      save
     end
   end
 
-  def self.find_by_rank
-
+  def self.find_by_rank(rank)
+    all.find {|i| i.rank == rank}
   end
 
 end
