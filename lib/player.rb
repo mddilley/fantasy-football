@@ -1,5 +1,4 @@
 # Purpose: Instantiate players based on data scraped from ESPN.com (BELONGS TO a team, HAS a position)
-
 class Player
 
   extend Findable::ClassMethods
@@ -15,10 +14,6 @@ class Player
     player_hash.each {|k,v| self.send("#{k}=", v)}
     save
   end
-
-  # def save
-  #   self.all << self
-  # end
 
   def self.all # Class variable reader
     @@all
