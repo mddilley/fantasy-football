@@ -8,7 +8,7 @@ class Player
 
   def initialize(player_hash)
     # player_hash passed in contains player name and attributes
-    # use metaprogramming to instantiate new classes and create attributes
+    # use metaprogramming to write attributes
     player_hash.each {|k,v| self.send("#{k}=", v)}
     save
   end
@@ -17,11 +17,12 @@ class Player
     @@all << self
   end
 
-  def self.all
+  def self.all # Class variable reader
     @@all
   end
 
   def self.create_from_nested_hashes(nested_hash)
+    # Custom class constructor, accepts player objects nested in an array
     nested_hash.each do |p|
       Player.new(p)
     end
