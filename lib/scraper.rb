@@ -16,11 +16,10 @@ class Scraper
     # Input is table of player rankings, outputs hash of players and their rankings
     top = 20 # Setting for # of players scraped
     rankings = {}
-    full_name = [t.text.split[1], t.text.split[3]].join(" ")
     rankings.tap {
     table.each_with_index do |t, i|
       if i < top
-        rankings[full_name] = {:rank => t.text.split[0],
+        rankings[[t.text.split[1], t.text.split[3]].join(" ")] = {:rank => t.text.split[0],
                                :url => "https://www.fantasypros.com" + t.css('a')[0]["href"]}
       end
     end

@@ -2,6 +2,9 @@
 
 class Player
 
+  extend Findable::ClassMethods
+  include Memorable::InstanceMethods
+
   attr_accessor :name, :position, :projection, :team, :height, :weight, :age, :college, :rank
 
   @@all = []
@@ -13,9 +16,9 @@ class Player
     save
   end
 
-  def save
-    @@all << self
-  end
+  # def save
+  #   self.all << self
+  # end
 
   def self.all # Class variable reader
     @@all
@@ -26,10 +29,6 @@ class Player
     nested_hash.each do |p|
       Player.new(p)
     end
-  end
-
-  def self.find_by_rank(rank)
-    all.find {|i| i.rank == rank}
   end
 
 end
