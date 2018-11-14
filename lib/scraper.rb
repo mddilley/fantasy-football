@@ -4,12 +4,7 @@ class Scraper
 
   def scrape_rankings(position)
     # scrapes ESPN.com for top 20 players per position
-    # variable pass in is position (string)
-    # output is a hash with player names, rankings, and player url
-    # positions.each do |k,v|
-    #    doc = Nokogiri::HTML(open(""))
-    #    k = Position.new()
-    # end
+    # variable passed in is position (string), output is a hash with player names, rankings, and player url
     position = "qb"
     top = 20
     doc = Nokogiri::HTML(open("https://www.fantasypros.com/nfl/rankings/#{position}.php"))
@@ -21,11 +16,12 @@ class Scraper
     # Input is table of player rankings, outputs hash of players and their rankings
     top = 20 # Setting for # of players scraped
     rankings = {}
+    full_name = [t.text.split[1], t.text.split[3]].join(" ")
     rankings.tap {
     table.each_with_index do |t, i|
       if i < top
-        rankings[[t.text.split[1], t.text.split[3]].join(" ")] = {:rank => t.text.split[0],
-                                                                  :url => "https://www.fantasypros.com" + t.css('a')[0]["href"]}
+        rankings[full_name] = {:rank => t.text.split[0],
+                               :url => "https://www.fantasypros.com" + t.css('a')[0]["href"]}
       end
     end
     }
