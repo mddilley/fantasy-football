@@ -33,11 +33,12 @@ class Scraper
             :position => doc.css('div .pull-left h5').text.strip.split(" - ")[0],
             :projection => doc.css('.clearfix.detail span.pull-right')[2].text.split[0],
             :team => doc.css('div .pull-left h5').text.strip.split(" - ")[1],
-            :height => doc.css('span.bio-detail')[0].text[8,5].strip,
+            :height => doc.css('span.bio-detail')[0].text[8,6].strip,
             :weight => doc.css('span.bio-detail')[1].text[8,3],
             :age => doc.css('span.bio-detail')[2].text[5,2],
-            :college => doc.css('span.bio-detail')[3].text.split(": ")[1]
+            :college => doc&.css('span.bio-detail')[3]&.text&.split(": ")&[1] #safe navigation operator
             }
+    hash.each {|k,v| hash[k] = "n/a" if v == false}
   end
 
   def build_nested_player_hash(position)
@@ -56,3 +57,4 @@ class Scraper
 end
 
 # Player.create_from_nested_hashes(Scraper.new.build_nested_player_hash("qb"))
+# hash = { :college => nil || doc.css('span.bio-detail')[3].text.split(": ")[1]

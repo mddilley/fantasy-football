@@ -22,10 +22,11 @@ class CLI
     # asks for position (QB, WR, RB, TE, or K) and lists top 20 ranked by Fantasypros
     puts "What position would you like to see rankings for?"
     puts "Please enter QB, RB, TE, WR, or K:"
-    position = gets.strip.downcase
-    if position == "qb" || position == "rb" || position == "te" || position ==  "wr" || position == "k"
-      Player.create_from_nested_hashes(Scraper.new.build_nested_player_hash(position))
-      print_rankings(position)
+    @position = gets.strip.downcase
+    #binding.pry
+    if @position == "qb" || @position == "rb" || @position == "te" || @position ==  "wr" || @position == "k"
+      Player.create_from_nested_hashes(Scraper.new.build_nested_player_hash(@position))
+      print_rankings(@position)
       choose_player
     else
       puts "Invalid entry - please enter a valid input:"
@@ -56,18 +57,18 @@ class CLI
   end
 
   def print_player(list_number)
-    binding.pry
-    p = Player.find_by_rank_and_position(list_number, position)
-    puts "-------------------------------         "
-    puts "Name: #{player.name}                    "
-    puts "Position: #{player.position}            "
-    puts "Projection: #{player.projection} points "
-    puts "Team: #{player.team}                    "
-    puts "Height: #{player.height}                "
-    puts "Weight: #{player.weight} lbs.           "
-    puts "Age: #{player.age}                      "
-    puts "College: #{player.college}              "
-    puts "-------------------------------         "
+    #binding.pry
+    p = Player.find_by_rank_and_position(list_number, @position)
+    puts "-------------------------------    "
+    puts "Name: #{p.name}                    "
+    puts "Position: #{p.position}            "
+    puts "Projection: #{p.projection} points "
+    puts "Team: #{p.team}                    "
+    puts "Height: #{p.height}                "
+    puts "Weight: #{p.weight} lbs.           "
+    puts "Age: #{p.age}                      "
+    puts "College: #{p.college}              "
+    puts "-------------------------------    "
   end
 
   def again?
@@ -76,12 +77,12 @@ class CLI
     puts "Please enter 1, 2, or quit."
     input = gets.strip.downcase
     if input == "1"
-      print_rankings(position)
+      print_rankings(@position)
       choose_player
     elsif input == "2"
       choose_rankings
     elsif input == "quit"
-      return
+      exit
     else
       puts "Invalid entry - please enter a valid input:"
       again?
