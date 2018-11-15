@@ -2,28 +2,17 @@
 
 class CLI
 
-  attr_accessor :position #stores current state of position choice
-
-  # Desired interface:
-  # "What position would you like to see the top 20 players?"
-  # => List of top 20 players for QB, WR, RB, TE, or K and team player is on
-  # "Would you like to know more information about a player?"
-  # => Show more detailed information about a specific player (enter #)
-  # "Would you like to see more rankings, details about another player, or quit?"
-  # => 1. Return to rankings, show different player, or quit
-  def initialize
-  end
-
+  attr_accessor :position # Stores current state of position choice
+  
   def welcome
     puts "Welcome to the NFL Fantasy Football Rankings and Players!"
   end
 
   def choose_rankings
-    # asks for position (QB, WR, RB, TE, or K) and lists top 20 ranked by Fantasypros
+    # Asks for position (QB, WR, RB, TE, or K) and lists top 20 ranked by Fantasypros
     puts "What position would you like to see rankings for?"
     puts "Please enter QB, RB, TE, WR, or K:"
     @position = gets.strip.downcase
-    #binding.pry
     if @position == "qb" || @position == "rb" || @position == "te" || @position ==  "wr" || @position == "k"
       Player.create_from_nested_hashes(Scraper.new.build_nested_player_hash(@position))
       print_rankings(@position)
@@ -35,15 +24,12 @@ class CLI
   end
 
   def print_rankings(position)
-    #iterates through position.all to print player name and rankings by position
-    # puts "1. Todd Gurley II"
-    # puts "2. Alvin Kamara"
+    # Iterates through position.all to print player name and rankings by position
     Player.find_by_position(position).sort {|a,b| a.rank.to_i <=> b.rank.to_i}.each {|i| puts "#{i.rank}. #{i.name}"}
   end
 
   def choose_player
-    # prompts for player details
-    # input is rank, output is player details
+    # Prompts for player details - input is rank, output is player details
     puts "If you would like to see details about a player, enter their rank number. If not, enter N:"
     rank = gets.strip
     if rank.to_i.between?(1,20)
@@ -57,7 +43,7 @@ class CLI
   end
 
   def print_player(list_number)
-    #binding.pry
+    # Prints specific player using a custom class finder
     p = Player.find_by_rank_and_position(list_number, @position)
     puts "-------------------------------    "
     puts "Name: #{p.name}                    "
