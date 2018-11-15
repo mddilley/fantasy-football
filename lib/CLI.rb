@@ -28,7 +28,7 @@ class CLI
       print_rankings(position)
       choose_player
     else
-      puts "Invalid entry - please enter a valid input."
+      puts "Invalid entry - please enter a valid input:"
       choose_rankings
     end
   end
@@ -43,29 +43,31 @@ class CLI
   def choose_player
     # prompts for player details
     # input is rank, output is player details
-    puts "If you would like to see details about a player, enter their rank number. If not, enter N"
+    puts "If you would like to see details about a player, enter their rank number. If not, enter N:"
     rank = gets.strip
     if rank.to_i.between?(1,20)
       print_player(rank)
     elsif rank.downcase == "n"
       return
     else
-      puts "Invalid entry - please enter a valid input."
+      puts "Invalid entry - please enter a valid input:"
       choose_player
     end
   end
 
   def print_player(list_number)
-    puts "-------------------------------"
-    puts "Name: Todd Gurley II           "
-    puts "Position: RB                   "
-    puts "Projection: 22.6 points        "
-    puts "Team: LAR                      "
-    puts "Height: 6' 1\"                 "
-    puts "Weight: 224 lbs.               "
-    puts "Age: 24                        "
-    puts "College: Georgia               "
-    puts "-------------------------------"
+    binding.pry
+    p = Player.find_by_rank_and_position(list_number, position)
+    puts "-------------------------------         "
+    puts "Name: #{player.name}                    "
+    puts "Position: #{player.position}            "
+    puts "Projection: #{player.projection} points "
+    puts "Team: #{player.team}                    "
+    puts "Height: #{player.height}                "
+    puts "Weight: #{player.weight} lbs.           "
+    puts "Age: #{player.age}                      "
+    puts "College: #{player.college}              "
+    puts "-------------------------------         "
   end
 
   def again?
@@ -81,7 +83,7 @@ class CLI
     elsif input == "quit"
       return
     else
-      puts "Invalid entry - please enter a valid input."
+      puts "Invalid entry - please enter a valid input:"
       again?
     end
     again?
