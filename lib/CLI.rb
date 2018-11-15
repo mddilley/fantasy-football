@@ -19,11 +19,12 @@ class CLI
   end
 
   def choose_rankings
-    # asks for position (QB, WR, RB, TE, or K) and lists top 20 ranked by ESPN
+    # asks for position (QB, WR, RB, TE, or K) and lists top 20 ranked by Fantasypros
     puts "What position would you like to see rankings for?"
     puts "Please enter QB, RB, TE, WR, or K:"
     position = gets.strip.downcase
     if position == "qb" || position == "rb" || position == "te" || position ==  "wr" || position == "k"
+      Player.create_from_nested_hashes(Scraper.new.build_nested_player_hash(position))
       print_rankings(position)
       choose_player
     else
@@ -34,9 +35,9 @@ class CLI
 
   def print_rankings(position)
     #iterates through position.all to print player name and rankings by position
-    puts "1. Todd Gurley II"
-    puts "2. Alvin Kamara"
-    # position.all.each {|i| "#{i.rank}. #{i.player.name}"}
+    # puts "1. Todd Gurley II"
+    # puts "2. Alvin Kamara"
+    Player.all.sort {|a,b| a.rank.to_i <=> b.rank.to_i}.each {|i| puts "#{i.rank}. #{i.name}"}
   end
 
   def choose_player

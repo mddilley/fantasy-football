@@ -5,7 +5,6 @@ class Scraper
   def scrape_rankings(position)
     # scrapes ESPN.com for top 20 players per position
     # variable passed in is position (string), output is a hash with player names, rankings, and player url
-    position = "qb"
     top = 20
     doc = Nokogiri::HTML(open("https://www.fantasypros.com/nfl/rankings/#{position}.php"))
     table = doc.css('tbody tr') # Selects the table with player rankings
