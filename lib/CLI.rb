@@ -38,7 +38,7 @@ class CLI
     #iterates through position.all to print player name and rankings by position
     # puts "1. Todd Gurley II"
     # puts "2. Alvin Kamara"
-    Player.all.sort {|a,b| a.rank.to_i <=> b.rank.to_i}.each {|i| puts "#{i.rank}. #{i.name}"}
+    Player.find_by_position(position).sort {|a,b| a.rank.to_i <=> b.rank.to_i}.each {|i| puts "#{i.rank}. #{i.name}"}
   end
 
   def choose_player
