@@ -5,7 +5,6 @@ class Scraper
   def scrape_rankings(position)
     # Scrapes Fantasypros.com for top n players per position
     # Variable passed in is position (string), output is a hash with player names, rankings, and player url
-    top = 20
     doc = Nokogiri::HTML(open("https://www.fantasypros.com/nfl/rankings/#{position}.php"))
     table = doc.css('tbody tr') # Selects the table with player rankings
     build_ranking_hash(table)
@@ -38,7 +37,7 @@ class Scraper
             :weight => doc.css('span.bio-detail')[1].text[8,3],
             :age => doc.css('span.bio-detail')[2].text[5,2],
             :college => (doc.css('span.bio-detail')[3].text.split(": ")[1].to_s rescue rescue_s)
-            }
+           }
   end
 
   def build_nested_player_hash(position)
