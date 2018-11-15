@@ -1,10 +1,10 @@
-# Purpose: to scrape ESPN.com for data about players and FF rankings
+# Purpose: to scrape Fantasypros.com for data about players and FF rankings
 
 class Scraper
 
   def scrape_rankings(position)
-    # scrapes ESPN.com for top 20 players per position
-    # variable passed in is position (string), output is a hash with player names, rankings, and player url
+    # Scrapes Fantasypros.com for top n players per position
+    # Variable passed in is position (string), output is a hash with player names, rankings, and player url
     top = 20
     doc = Nokogiri::HTML(open("https://www.fantasypros.com/nfl/rankings/#{position}.php"))
     table = doc.css('tbody tr') # Selects the table with player rankings
@@ -16,18 +16,18 @@ class Scraper
     top = 20 # Setting for # of players scraped
     rankings = {}
     rankings.tap {
-    table.each_with_index do |t, i|
-      if i < top
-        rankings[[t.text.split[1], t.text.split[3]].join(" ")] = {:rank => t.text.split[0],
-                               :url => "https://www.fantasypros.com" + t.css('a')[0]["href"]}
+      table.each_with_index do |t, i|
+        if i < top
+          rankings[[t.text.split[1], t.text.split[3]].join(" ")] = {:rank => t.text.split[0],
+                                 :url => "https://www.fantasypros.com" + t.css('a')[0]["href"]}
+        end
       end
-    end
     }
   end
 
   def scrape_player(player_url)
-    # scrapes ESPN.com for players listed in rankings
-    # variable passed in is player_url, output is hash of player attributes
+    # Scrapes Fantasypros.com for players listed in rankings
+    # Variable passed in is player_url, output is hash of player attributes
     doc = Nokogiri::HTML(open(player_url))
     rescue_s = "n/a"
     hash = {:name => doc.css('h1').text,
@@ -42,7 +42,7 @@ class Scraper
   end
 
   def build_nested_player_hash(position)
-    # Creates nested hashes for instantiating all Player objects in Top 20 lists
+    # Creates nested hashes for instantiating all Player objects in top n lists
     nested_hash = []
     ranking_hash = scrape_rankings(position)
     nested_hash.tap {
@@ -55,5 +55,3 @@ class Scraper
   end
 
 end
-
-# Player.create_from_nested_hashes(Scraper.new.build_nested_player_hash("qb"))
