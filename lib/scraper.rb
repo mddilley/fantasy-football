@@ -1,16 +1,14 @@
-# Purpose: to scrape Fantasypros.com for data about players and FF rankings
-
 class Scraper
 
   def scrape_rankings(position)
     doc = Nokogiri::HTML(open("https://www.fantasypros.com/nfl/rankings/#{position}.php"))
-    table = doc.css('tbody tr') # Selects the table with player rankings
+    table = doc.css('tbody tr') # Selects the HTML table with player rankings
     build_players(table)
     add_attr
   end
 
   def build_players(table)
-    # Input is table of player rankings, outputs hash of players and their rankings
+    # Input is HTML table of player rankings, instantiates Players, assigns name, rank, and url
     top = 20 # Setting for # of players scraped
     table.each_with_index do |t, i|
       if i < top
@@ -23,8 +21,8 @@ class Scraper
   end
 
   def add_attr
-    # Scrapes Fantasypros.com for players listed in rankings
-    # Variable passed in is player_url, output is hash of player attributes
+    # Scrapes player urls stored in Player instances
+    # Assigns additional attributes
     rescue_s = "n/a"
     Player.all.each do |i|
       doc = Nokogiri::HTML(open(i.url))

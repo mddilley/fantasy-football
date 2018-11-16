@@ -1,5 +1,3 @@
-# Purpose: Instantiate players based on data scraped from Fantasypros.com
-
 class Player
 
   extend Findable::ClassMethods
