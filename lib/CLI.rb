@@ -1,6 +1,6 @@
 class CLI
 
-  attr_accessor :position # Stores current state of position choice
+  attr_accessor :position, :scraper # Stores current state of position choice
 
   def welcome
     puts "Welcome to the NFL Fantasy Football Rankings and Players!"
@@ -12,7 +12,8 @@ class CLI
     puts "Please enter QB, RB, TE, WR, or K:"
     @position = gets.strip.downcase
     if @position == "qb" || @position == "rb" || @position == "te" || @position ==  "wr" || @position == "k"
-      Scraper.new.scrape_rankings(@position)
+      @scraper = Scraper.new
+      @scraper.scrape_rankings(@position)
       print_rankings(@position)
       choose_player
     else
@@ -43,6 +44,8 @@ class CLI
   def print_player(list_number)
     # Prints specific player using a custom class finder
     p = Player.find_by_rank_and_position(list_number, @position)
+    # binding.pry
+    @scraper.add_attr(p)
     puts "-------------------------------    "
     puts "Name: #{p.name}                    "
     puts "Position: #{p.position}            "
