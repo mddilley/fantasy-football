@@ -44,7 +44,6 @@ class CLI
   def print_player(list_number)
     # Prints specific player using a custom class finder
     p = Player.find_by_rank_and_position(list_number, @position)
-    # binding.pry
     @scraper.add_attr(p)
     puts "-------------------------------    "
     puts "Name: #{p.name}                    "

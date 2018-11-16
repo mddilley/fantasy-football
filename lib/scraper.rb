@@ -4,7 +4,6 @@ class Scraper
     doc = Nokogiri::HTML(open("https://www.fantasypros.com/nfl/rankings/#{position}.php"))
     table = doc.css('tbody tr') # Selects the HTML table with player rankings
     build_players(table, position)
-    # add_attr
   end
 
   def build_players(table,position)
@@ -22,12 +21,10 @@ class Scraper
   end
 
   def add_attr(player)
-    # Scrapes player urls stored in Player instances
+    # Scrapes player urls stored in Player instance
     # Assigns additional attributes
     rescue_s = "n/a"
-
     doc = Nokogiri::HTML(open(player.url))
-    # player.position = doc.css('div .pull-left h5').text.strip.split(" - ")[0]
     player.projection = doc.css('.clearfix.detail span.pull-right')[2].text.split[0]
     player.team = doc.css('div .pull-left h5').text.strip.split(" - ")[1]
     player.height = doc.css('span.bio-detail')[0].text[8,6].strip
