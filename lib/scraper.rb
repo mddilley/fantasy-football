@@ -21,8 +21,7 @@ class Scraper
   end
 
   def add_attr(player)
-    # Scrapes player urls stored in Player instance
-    # Assigns additional attributes
+    # Scrapes player urls stored in Player instance and ssigns additional attributes
     rescue_s = "n/a"
     doc = Nokogiri::HTML(open(player.url))
     player.projection = doc.css('.clearfix.detail span.pull-right')[2].text.split[0]
