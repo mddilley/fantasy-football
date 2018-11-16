@@ -3,7 +3,7 @@
 class CLI
 
   attr_accessor :position # Stores current state of position choice
-  
+
   def welcome
     puts "Welcome to the NFL Fantasy Football Rankings and Players!"
   end
@@ -14,7 +14,7 @@ class CLI
     puts "Please enter QB, RB, TE, WR, or K:"
     @position = gets.strip.downcase
     if @position == "qb" || @position == "rb" || @position == "te" || @position ==  "wr" || @position == "k"
-      Player.create_from_nested_hashes(Scraper.new.build_nested_player_hash(@position))
+      Scraper.new.scrape_rankings(@position)
       print_rankings(@position)
       choose_player
     else

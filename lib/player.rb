@@ -5,14 +5,14 @@ class Player
   extend Findable::ClassMethods
   include Memorable::InstanceMethods
 
-  attr_accessor :name, :position, :projection, :team, :height, :weight, :age, :college, :rank
+  attr_accessor :name, :position, :projection, :team, :height, :weight, :age, :college, :rank, :url
 
   @@all = []
 
-  def initialize(player_hash)
+  def initialize
     # player_hash passed in contains player name and attributes
     # use metaprogramming to write attributes
-    player_hash.each {|k,v| self.send("#{k}=", v)}
+    # player_hash.each {|k,v| self.send("#{k}=", v)}
     save
   end
 
