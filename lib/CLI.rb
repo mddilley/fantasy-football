@@ -1,5 +1,3 @@
-# Purpose: to instantiate a command line interface
-
 class CLI
 
   attr_accessor :position # Stores current state of position choice
@@ -9,7 +7,7 @@ class CLI
   end
 
   def choose_rankings
-    # Asks for position (QB, WR, RB, TE, or K) and lists top 20 ranked by Fantasypros
+    # Asks for position and lists top players ranked by Fantasypros
     puts "What position would you like to see rankings for?"
     puts "Please enter QB, RB, TE, WR, or K:"
     @position = gets.strip.downcase
@@ -24,12 +22,12 @@ class CLI
   end
 
   def print_rankings(position)
-    # Iterates through position.all to print player name and rankings by position
+    # Iterates through Player.all to print player name and rankings by position
     Player.find_by_position(position).sort {|a,b| a.rank.to_i <=> b.rank.to_i}.each {|i| puts "#{i.rank}. #{i.name}"}
   end
 
   def choose_player
-    # Prompts for player details - input is rank, output is player details
+    # Prompts for player rank #, outputs player details
     puts "If you would like to see details about a player, enter their rank number. If not, enter N:"
     rank = gets.strip
     if rank.to_i.between?(1,20)
