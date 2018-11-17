@@ -1,5 +1,9 @@
 class Scraper
 
+  def self.size #Determines how many players to scrape per position
+    20
+  end
+
   def scrape_rankings(position)
     doc = Nokogiri::HTML(open("https://www.fantasypros.com/nfl/rankings/#{position}.php"))
     table = doc.css('tbody tr') # Selects the HTML table with player rankings
@@ -8,9 +12,9 @@ class Scraper
 
   def build_players(table,position)
     # Input is HTML table of player rankings, instantiates Players, assigns name, rank, and url
-    top = 20 # Setting for # of players scraped
+    # top = 20 # Setting for # of players scraped
     table.each_with_index do |t, i|
-      if i < top
+      if i < Scraper.size
         p = Player.new
         p.name = [t.text.split[1], t.text.split[3]].join(" ")
         p.rank = t.text.split[0]

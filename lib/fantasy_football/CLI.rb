@@ -13,7 +13,6 @@ class CLI
     puts "What position would you like to see rankings for?"
     puts "Please enter QB, RB, TE, WR, or K:"
     @position = gets.strip.downcase
-    # if @position == "qb" || @position == "rb" || @position == "te" || @position ==  "wr" || @position == "k"
     if POSITIONS.find {|i| i == @position}
       @scraper = Scraper.new
       @scraper.scrape_rankings(@position)
@@ -36,7 +35,7 @@ class CLI
     # Prompts for player rank #, outputs player details
     puts "If you would like to see details about a player, enter their rank number. If not, enter N:"
     rank = gets.strip
-    if rank.to_i.between?(1,20)
+    if rank.to_i.between?(1,Scraper.size)
       print_player(rank)
     elsif rank.downcase == "n"
       return
