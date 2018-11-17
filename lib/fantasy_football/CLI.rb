@@ -14,7 +14,7 @@ class CLI
     puts "Please enter QB, RB, TE, WR, or K:"
     @position = gets.strip.downcase
     if POSITIONS.include?(@position)
-      s = Scraper.new_with_name(@position)
+      Scraper.new_with_name(@position)
       print_rankings(@position)
       choose_player
     else

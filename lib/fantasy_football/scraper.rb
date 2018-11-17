@@ -31,7 +31,7 @@ class Scraper
     # binding.pry
     @week = doc.css('h1').text.split[5]
     table = doc.css('tbody tr') # Selects the HTML table with player rankings
-    build_players(table, position)
+    build_players(table, name)
   end
 
   def build_players(table,position)
