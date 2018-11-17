@@ -76,7 +76,6 @@ class CLI
     elsif input == "2"
       choose_rankings
     elsif input == "quit"
-      binding.pry
       exit
     else
       puts "Invalid entry - please enter a valid input:"
