@@ -2,7 +2,7 @@ class CLI
 
   POSITIONS = ["qb", "rb", "te", "wr", "k"]
 
-  attr_accessor :last_position, :scraper # Stores current state of position choice and scraper instance
+  attr_accessor :position # Stores current state of position choice
 
   def welcome
     puts "Welcome to the NFL Fantasy Football Rankings and Players!"
@@ -13,9 +13,10 @@ class CLI
     puts "What position would you like to see rankings for?"
     puts "Please enter QB, RB, TE, WR, or K:"
     @position = gets.strip.downcase
-    if POSITIONS.find {|i| i == @position}
-      @scraper = Scraper.new
-      @scraper.scrape_rankings(@position)
+    if POSITIONS.include?(@position)
+      s = Scraper.new
+      s.name = @position
+      s.scrape_rankings(@position)
       print_rankings(@position)
       choose_player
     else
@@ -27,6 +28,7 @@ class CLI
   def print_rankings(position)
     # Iterates through Player.all to print player name and rankings by position
     puts " "
+    puts "-- Top #{Scraper.size} #{@position.upcase}s --"
     Player.find_by_position(position).sort {|a,b| a.rank.to_i <=> b.rank.to_i}.each {|i| puts "#{i.rank}. #{i.name}"}
     puts " "
   end
@@ -47,9 +49,11 @@ class CLI
 
   def print_player(list_number)
     # Prints specific player using a custom class finder
+    blank = "                                   "
     p = Player.find_by_rank_and_position(list_number, @position)
-    @scraper.add_attr(p)
-    puts "                                   "
+    Scraper.find_by_name(@position).add_attr(p)
+    puts blank
+    puts "         Player Stats              "
     puts "-------------------------------    "
     puts "Name: #{p.name}                    "
     puts "Position: #{p.position}            "
@@ -60,7 +64,7 @@ class CLI
     puts "Age: #{p.age}                      "
     puts "College: #{p.college}              "
     puts "-------------------------------    "
-    puts "                                   "
+    puts blank
   end
 
   def again?

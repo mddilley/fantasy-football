@@ -1,5 +1,20 @@
 class Scraper
 
+  extend Findable::ClassMethods
+  include Memorable::InstanceMethods
+
+  attr_accessor :name
+
+  @@all = []
+
+  def initialize
+    save
+  end
+
+  def self.all # Class variable reader
+    @@all
+  end
+
   def self.size #Determines how many players to scrape per position
     20
   end
