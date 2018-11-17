@@ -14,9 +14,7 @@ class CLI
     puts "Please enter QB, RB, TE, WR, or K:"
     @position = gets.strip.downcase
     if POSITIONS.include?(@position)
-      s = Scraper.new
-      s.name = @position
-      s.scrape_rankings(@position)
+      s = Scraper.new_with_name(@position)
       print_rankings(@position)
       choose_player
     else
@@ -78,6 +76,7 @@ class CLI
     elsif input == "2"
       choose_rankings
     elsif input == "quit"
+      binding.pry
       exit
     else
       puts "Invalid entry - please enter a valid input:"

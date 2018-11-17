@@ -3,7 +3,7 @@ class Player
   extend Findable::ClassMethods
   include Memorable::InstanceMethods
 
-  attr_accessor :name, :position, :projection, :team, :height, :weight, :age, :college, :rank, :url
+  attr_accessor :name, :position, :projection, :team, :height, :weight, :age, :college, :rank, :url, :scraped
 
   @@all = []
 
