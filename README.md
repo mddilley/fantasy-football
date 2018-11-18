@@ -20,7 +20,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To run
+
+    $ fantasyfootball
+
+To start IRB
+
+    $ console
 
 ## Development
 
