@@ -26,7 +26,7 @@ class CLI
   def print_rankings(position)
     # Iterates through Player.all to print player name and rankings by position
     puts " "
-    puts "-- Top #{Scraper.size} #{@position.upcase}s for Week #{Scraper.find_by_name(@position).week} --"
+    puts "-- Top #{Scraper.size} #{@position.upcase}s for Week #{Scraper.find_by_name(@position).week} of #{Time.new.year} --"
     Player.find_by_position(position).sort {|a,b| a.rank.to_i <=> b.rank.to_i}.each {|i| puts "#{i.rank}. #{i.name}"}
     puts " "
   end
