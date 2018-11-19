@@ -7,12 +7,12 @@ class FantasyFootball::Scraper
   def self.scrape_rankings(position)
     doc = Nokogiri::HTML(open("https://www.fantasypros.com/nfl/rankings/#{position}.php"))
     # binding.pry
-    @week = doc.css('h1').text.split[5]
+    week = doc.css('h1').text.split[5]
     table = doc.css('tbody tr') # Selects the HTML table with player rankings
-    build_players(table, position)
+    build_players(table, position, week)
   end
 
-  def self.build_players(table,position)
+  def self.build_players(table, position, week)
     # Input is HTML table of player rankings, instantiates Players, assigns name, rank, and url
     table.each_with_index do |t, i|
       if i < size
@@ -20,6 +20,7 @@ class FantasyFootball::Scraper
         p.name = [t.text.split[1], t.text.split[3]].join(" ")
         p.rank = t.text.split[0]
         p.url = "https://www.fantasypros.com" + t.css('a')[0]["href"]
+        p.week = week
         p.position = position.upcase
       end
     end
