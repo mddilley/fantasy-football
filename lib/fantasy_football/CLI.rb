@@ -27,7 +27,7 @@ class FantasyFootball::CLI
     # Iterates through Player.all to print player name and rankings by position
     puts " "
     puts "-- Top #{FantasyFootball::Scraper.size} #{position.upcase}s for Week #{11} of #{Time.new.year} --"
-    FantasyFootball::Player.find_by_position(position).sort {|a,b| a.rank.to_i <=> b.rank.to_i}.each {|i| puts "#{i.rank}. #{i.name}"}
+    Player.find_by_position(position).sort {|a,b| a.rank.to_i <=> b.rank.to_i}.each {|i| puts "#{i.rank}. #{i.name}"}
     puts " "
   end
 
