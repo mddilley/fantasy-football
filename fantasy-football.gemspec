@@ -47,4 +47,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "rake", "~> 10.0"
   spec.add_runtime_dependency "require_all", ">= 0"
   spec.add_runtime_dependency "nokogiri", ">= 0"
+  spec.add_runtime_dependency "pry", ">= 0"
 end
