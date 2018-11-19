@@ -1,43 +1,43 @@
 class Scraper
 
-  extend Findable::ClassMethods
-  include Memorable::InstanceMethods
-
-  attr_accessor :name, :week
-
-  @@all = []
-
-  def self.all # Class variable reader
-    @@all
-  end
-
+  # extend Findable::ClassMethods
+  # include Memorable::InstanceMethods
+  #
+  # attr_accessor :name, :week
+  #
+  # @@all = []
+  #
+  # def self.all # Class variable reader
+  #   @@all
+  # end
+  #
   def self.size #Determines how many players to scrape per position
     20
   end
 
-  def self.new_with_name(name) #Custom class constructor
-    if !Scraper.find_by_name(name)
-      s = Scraper.new
-      s.name = name
-      s.save
-      s.scrape_rankings(name)
-    else
-    Scraper.find_by_name(name)
-    end
-  end
+  # def self.new_with_name(name) #Custom class constructor
+  #   if !Scraper.find_by_name(name)
+  #     s = Scraper.new
+  #     s.name = name
+  #     s.save
+  #     s.scrape_rankings(name)
+  #   else
+  #   Scraper.find_by_name(name)
+  #   end
+  # end
 
-  def scrape_rankings(position)
+  def self.scrape_rankings(position)
     doc = Nokogiri::HTML(open("https://www.fantasypros.com/nfl/rankings/#{position}.php"))
     # binding.pry
     @week = doc.css('h1').text.split[5]
     table = doc.css('tbody tr') # Selects the HTML table with player rankings
-    build_players(table, name)
+    build_players(table, position)
   end
 
-  def build_players(table,position)
+  def self.build_players(table,position)
     # Input is HTML table of player rankings, instantiates Players, assigns name, rank, and url
     table.each_with_index do |t, i|
-      if i < Scraper.size
+      if i < 20#Scraper.size
         p = Player.new
         p.name = [t.text.split[1], t.text.split[3]].join(" ")
         p.rank = t.text.split[0]

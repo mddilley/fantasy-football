@@ -12,10 +12,10 @@ class CLI
     # Asks for position and lists top players ranked by Fantasypros
     puts "What position would you like to see rankings for?"
     puts "Please enter QB, RB, TE, WR, or K:"
-    @position = gets.strip.downcase
-    if POSITIONS.include?(@position)
-      Scraper.new_with_name(@position)
-      print_rankings(@position)
+    position = gets.strip.downcase
+    if POSITIONS.include?(position)
+      Scraper.scrape_rankings(position) if Player.find_by_position(position) == []
+      print_rankings(position)
       choose_player
     else
       puts "Invalid entry - please enter a valid input:"
@@ -26,7 +26,7 @@ class CLI
   def print_rankings(position)
     # Iterates through Player.all to print player name and rankings by position
     puts " "
-    puts "-- Top #{Scraper.size} #{@position.upcase}s for Week #{Scraper.find_by_name(@position).week} of #{Time.new.year} --"
+    puts "-- Top #{Scraper.size} #{position.upcase}s for Week #{11} of #{Time.new.year} --"#Scraper.find_by_name(position).week} of #{Time.new.year} --"
     Player.find_by_position(position).sort {|a,b| a.rank.to_i <=> b.rank.to_i}.each {|i| puts "#{i.rank}. #{i.name}"}
     puts " "
   end
