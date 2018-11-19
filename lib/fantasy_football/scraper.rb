@@ -15,7 +15,7 @@ class FantasyFootball::Scraper
   def self.build_players(table,position)
     # Input is HTML table of player rankings, instantiates Players, assigns name, rank, and url
     table.each_with_index do |t, i|
-      if i < Scraper.size
+      if i < FantasyFootball::Scraper.size
         p = FantasyFootball::Player.new
         p.name = [t.text.split[1], t.text.split[3]].join(" ")
         p.rank = t.text.split[0]
