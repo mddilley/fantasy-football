@@ -4,3 +4,10 @@ source "https://rubygems.org"
 
 # Specify your gem's dependencies in fantasy-football.gemspec
 gemspec
+
+require 'bundler'
+require 'pry'
+require 'nokogiri'
+require 'open-uri'
+require 'require_all'
+require 'irb'
