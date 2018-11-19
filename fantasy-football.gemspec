@@ -5,7 +5,7 @@ require "fantasy_football/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "fantasy-football"
-  spec.version       = FF::VERSION
+  spec.version       = FantasyFootball::VERSION
   spec.authors       = ["'Mike Dilley'"]
   spec.email         = ["'mike.dilley@gmail.com'"]
 

@@ -1,3 +1,3 @@
-module FF
-  VERSION = "0.1.5"
+module FantasyFootball
+  VERSION = "0.1.6"
 end

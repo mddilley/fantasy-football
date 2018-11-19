@@ -1,9 +1,9 @@
-class Player
+class FantasyFootball::Player
 
   extend Findable::ClassMethods
   include Memorable::InstanceMethods
 
-  attr_accessor :name, :position, :projection, :team, :height, :weight, :age, :college, :rank, :url, :scraped
+  attr_accessor :name, :position, :projection, :team, :height, :weight, :age, :college, :rank, :url
 
   @@all = []
 
