@@ -2,21 +2,19 @@ class FantasyFootball::CLI
 
   POSITIONS = ["qb", "rb", "te", "wr", "k"]
 
-  attr_accessor :position, :size # Stores current state of position choice and rank list size
-
   def welcome
     puts " "
     puts "Welcome to NFL Fantasy Football Rankings and Players!"
     puts " "
   end
 
-  def choose_list_size
-    puts "How many player rankings would you like see per position?"
-    puts "Please enter a number between 1 and 25:"
-    self.size = gets.strip.to_i
-    if !size.between?(1,25)
+  def choose_list_size(position)
+    puts "How many player rankings would you like see?"
+    puts "Please enter a number between 1 and #{FantasyFootball::Player.find_by_position(position).size}:"
+    @size = gets.strip.to_i
+    if !@size.between?(1,FantasyFootball::Player.find_by_position(position).size)
       puts "Invalid entry - please enter a valid input:"
-      choose_list_size
+      choose_list_size(@position)
     end
   end
 
@@ -24,10 +22,11 @@ class FantasyFootball::CLI
     # Asks for position and lists top players ranked by Fantasypros
     puts "What position would you like to see rankings for?"
     puts "Please enter QB, RB, TE, WR, or K:"
-    self.position = gets.strip.downcase
-    if POSITIONS.include?(position)
-      FantasyFootball::Scraper.scrape_rankings(position, size) if FantasyFootball::Player.find_by_position(position) == []
-      print_rankings
+    @position = gets.strip.downcase
+    if POSITIONS.include?(@position)
+      FantasyFootball::Scraper.scrape_rankings(@position) if FantasyFootball::Player.find_by_position(@position) == []
+      choose_list_size(@position)
+      print_rankings(@size)
       choose_player
     else
       puts "Invalid entry - please enter a valid input:"
@@ -35,11 +34,11 @@ class FantasyFootball::CLI
     end
   end
 
-  def print_rankings
+  def print_rankings(size)
     # Iterates through Player instances to print player name and rankings by position
     puts " "
-    FantasyFootball::Player.find_by_position(position).sort {|a,b| a.rank.to_i <=> b.rank.to_i}.each_with_index {| p, i|
-      puts "-- Top #{size} #{position.upcase}s for Week #{p.week} of #{Time.new.year} --" if i == 0
+    FantasyFootball::Player.find_by_position(@position)[0..@size - 1].each_with_index {| p, i|
+      puts "-- Top #{size} #{@position.upcase}s for Week #{p.week} of #{Time.new.year} --" if i == 0
       puts "#{p.rank}. #{p.name}"}
     puts " "
   end
@@ -48,7 +47,7 @@ class FantasyFootball::CLI
     # Prompts for player rank #, outputs player details
     puts "If you would like to see details about a player, enter their rank number. If not, enter N:"
     rank = gets.strip
-    if rank.to_i.between?(1,size)
+    if rank.to_i.between?(1,@size)
       print_player(rank)
     elsif rank.downcase == "n"
       return
@@ -61,7 +60,7 @@ class FantasyFootball::CLI
   def print_player(rank)
     # Prints specific player using a custom class finder
     blank = " "
-    p = FantasyFootball::Player.find_by_rank_and_position(rank, position)
+    p = FantasyFootball::Player.find_by_rank_and_position(rank, @position)
     FantasyFootball::Scraper.add_attr(p)
     puts blank
     puts "         Player Stats              "
@@ -84,7 +83,7 @@ class FantasyFootball::CLI
     puts "Please enter 1, 2, or quit."
     input = gets.strip.downcase
     if input == "1"
-      print_rankings
+      print_rankings(@size)
       choose_player
     elsif input == "2"
       choose_position
@@ -99,7 +98,6 @@ class FantasyFootball::CLI
 
   def run
     welcome
-    choose_list_size
     choose_position
     again?
   end

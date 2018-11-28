@@ -17,7 +17,7 @@ class FantasyFootball::Player
   end
 
   def self.find_by_position(position)
-    all.select {|i| i.position == position.upcase}
+    all.select {|i| i.position == position.upcase}.sort {|a,b| a.rank.to_i <=> b.rank.to_i}
   end
 
   def self.find_by_rank_and_position(rank, position)
