@@ -14,9 +14,7 @@ class FantasyFootball::CLI
     puts "How many player rankings would you like see per position?"
     puts "Please enter a number between 1 and 25:"
     self.size = gets.strip.to_i
-    if size.between?(1,25)
-      return
-    else
+    if !size.between?(1,25)
       puts "Invalid entry - please enter a valid input:"
       choose_list_size
     end
