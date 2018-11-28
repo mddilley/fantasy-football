@@ -2,7 +2,7 @@ class FantasyFootball::CLI
 
   POSITIONS = ["qb", "rb", "te", "wr", "k"]
 
-  attr_accessor :position, :size # Stores current state of position choice
+  attr_accessor :position, :size # Stores current state of position choice and rank list size
 
   def welcome
     puts " "
