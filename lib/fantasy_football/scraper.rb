@@ -11,13 +11,16 @@ class FantasyFootball::Scraper
     # Input is HTML table of player rankings, instantiates Players, assigns name, rank, and url
 
     table.each_with_index do |t, i|
-      if t.css('td')[0].text.to_i > 0 && i != 50
-        p = FantasyFootball::Player.new
-        p.name = t.css('span.full-name').text
-        p.rank = t.css('td')[0].text
-        p.url = "https://www.fantasypros.com" + t.css('a')[0]["href"]
-        p.week = week
-        p.position = position.upcase
+      begin
+        if t.css('td')[0].text.to_i > 0
+          p = FantasyFootball::Player.new
+          p.name = t.css('span.full-name').text
+          p.rank = t.css('td')[0].text
+          p.url = "https://www.fantasypros.com" + t.css('a')[0]["href"]
+          p.week = week
+          p.position = position.upcase
+        end
+      rescue NoMethodError
       end
     end
   end
