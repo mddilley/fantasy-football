@@ -5,7 +5,9 @@ class FantasyFootball::CLI
   attr_accessor :position, :size # Stores current state of position choice
 
   def welcome
+    puts " "
     puts "Welcome to the NFL Fantasy Football Rankings and Players!"
+    puts " "
   end
 
   def choose_list_size
@@ -60,7 +62,7 @@ class FantasyFootball::CLI
 
   def print_player(rank)
     # Prints specific player using a custom class finder
-    blank = "                                   "
+    blank = " "
     p = FantasyFootball::Player.find_by_rank_and_position(rank, position)
     FantasyFootball::Scraper.add_attr(p)
     puts blank
