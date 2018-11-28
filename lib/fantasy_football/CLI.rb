@@ -6,7 +6,7 @@ class FantasyFootball::CLI
 
   def welcome
     puts " "
-    puts "Welcome to the NFL Fantasy Football Rankings and Players!"
+    puts "Welcome to NFL Fantasy Football Rankings and Players!"
     puts " "
   end
 
